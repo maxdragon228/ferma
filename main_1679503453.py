@@ -180,15 +180,17 @@ class Ogorod(sprite.Sprite):
         
 play_button = Button(450,300,play_img,1)
 
+ogorod_button_buy = Button(580, 400, ogorod_image,1)
+
 settings_button = Button(550,300,settings_img,1)
 
 exit_button = Button(650,300,exit_img,1)
 
-shop_plant_tomato = Button(180,170,tomato_seed_img,1)
+shop_plant_tomato = Button(200,170,tomato_seed_img,1)
 
-shop_plant_potato = Button(560,170,potato_seed_img,1)
+shop_plant_potato = Button(580,170,potato_seed_img,1)
 
-shop_plant_carrot = Button(940,170,carrot_seed_img,1)
+shop_plant_carrot = Button(970,170,carrot_seed_img,1)
 
 shop_exit = Button(470,20,shop_exit_img,1)
 
@@ -294,7 +296,7 @@ ogorod_11 = Ogorod('ogorod.png', 1050, 570, 100, 100)
 
 ogorod_12 = Ogorod('ogorod.png', 1160, 570, 100, 100) 
 
-coin_1 = GameSprite ('coin.png', 200, 200, 100, 100, 1)
+coin_1 = GameSprite('coin.png', 200, 200, 100, 100, 1)
 
 coin_2 = GameSprite('coin.png', 200, 200, 100, 100, 1)
 
@@ -504,12 +506,17 @@ potato_11 = GameSprite("plant_seed.png", ogorod_11.rect.x, ogorod_11.rect.y, 70 
 
 potato_12 = GameSprite("plant_seed.png", ogorod_12.rect.x, ogorod_12.rect.y, 70 , 100, 0) 
 
+
+
+
 def draw_text (text, font, text_col, x, y,):
     img = font.render(text,True,text_col)
     mw.blit(img,(x,y))
 
+list_ogorod = [1,0,0,0,0,0,0,0,0,0,0,0]
+
 def shop_menu():
-    global shop_menu_state, shop_menu_img, player, money, tomato_seed, potato_seed, carrot_seed 
+    global shop_menu_state, shop_menu_img, player, money, tomato_seed, potato_seed, carrot_seed, list_ogorod
     
     while shop_menu_state:
         mw.blit(shop_menu_img,(0,0))
@@ -517,12 +524,17 @@ def shop_menu():
             if e.type == QUIT:
                 shop_menu_state = False   
                 player = Player("player.png",300,500,100,100,5)
+           
+        draw_text("1$", text1,(0,200, 0),230,265)
+        draw_text("6$", text1,(0,200, 0),610,265)
+        draw_text("3$", text1,(0,200, 0),1000,265)
+        draw_text("15$", text1,(0,200, 0),605,500)
                 
         if shop_plant_tomato.draw(mw):
             if money >= 1:
                 money -= 1
                 tomato_seed += 1
-        
+
         if shop_plant_potato.draw(mw):
             if money >= 6:
                 money -= 6
@@ -532,6 +544,14 @@ def shop_menu():
             if money >= 3:
                 money -= 3
                 carrot_seed += 1
+         
+        if ogorod_button_buy.draw(mw):
+            ogo = list_ogorod.index(0)
+            if ogo < len(list_ogorod):
+                if money >= 15:
+                    money -= 15
+                    list_ogorod[ogo] = 1       
+        
         
         if shop_exit.draw(mw):
             shop_menu_state = False
@@ -543,7 +563,7 @@ def shop_menu():
     shop_menu_state = True
     
 def plant_menu():
-    global state_plant_10, plant_menu_state, carrot_seed, tomato_seed, potato_seed, state_plant_1, state_plant_2, state_plant_3, state_plant_4, state_plant_5, state_plant_6, state_plant_7, state_plant_8, state_plant_9, state_plant_11, state_plant_12
+    global state_plant_10, plant_menu_state, carrot_seed, tomato_seed, potato_seed, state_plant_1, state_plant_2, state_plant_3, state_plant_4, state_plant_5, state_plant_6, state_plant_7, state_plant_8, state_plant_9, state_plant_11, state_plant_12, state_ogorod_1, state_ogorod_2, state_ogorod_3, state_ogorod_4, state_ogorod_5, state_ogorod_6, state_ogorod_7, state_ogorod_8, state_ogorod_9, state_ogorod_10, state_ogorod_11, state_ogorod_12, ogorod_1, ogorod_2, ogorod_3, ogorod_4, ogorod_5, ogorod_6, ogorod_7, ogorod_8, ogorod_9, ogorod_11, ogorod_12
     
     while plant_menu_state:
         for e in event.get():
@@ -557,120 +577,159 @@ def plant_menu():
                     ogorod_1.planted = True
                     state_plant_1 = 1
                     plants.add(tomato_1)
+                    state_ogorod_1 = False
                     
                 if state_ogorod_2:
                     ogorod_2.planted = True
                     state_plant_2 = 1
                     plants.add(tomato_2)
+                    state_ogorod_2 = False
                     
                 if state_ogorod_3:
                     ogorod_3.planted = True
                     state_plant_3 = 1
                     plants.add(tomato_3)
+                    state_ogorod_3 = False
                     
                 if state_ogorod_4:
                     ogorod_4.planted = True
                     state_plant_4 = 1
                     plants.add(tomato_4)
+                    state_ogorod_4 = False
                     
                 if state_ogorod_5:
                     ogorod_5.planted = True
                     state_plant_5 = 1
                     plants.add(tomato_5)
+                    state_ogorod_5 = False
                     
                 if state_ogorod_6:
                     ogorod_6.planted = True
                     state_plant_6 = 1
                     plants.add(tomato_6)
+                    state_ogorod_6 = False
                     
                 if state_ogorod_7:
                     ogorod_7.planted = True
                     state_plant_7 = 1
                     plants.add(tomato_7)
+                    state_ogorod_7 = False
                     
                 if state_ogorod_8:
                     ogorod_8.planted = True
                     state_plant_8 = 1
                     plants.add(tomato_8)
+                    state_ogorod_8 = False
                     
                 if state_ogorod_9:
                     ogorod_9.planted = True
                     state_plant_9 = 1
                     plants.add(tomato_9)
+                    state_ogorod_9 = False
                     
                 if state_ogorod_10:
                     ogorod_10.planted = True
                     state_plant_10 = 1
                     plants.add(tomato_10)
+                    state_ogorod_10 = False
                     
                 if state_ogorod_11:
                     ogorod_11.planted = True
                     state_plant_11 = 1
                     plants.add(tomato_11)
+                    state_ogorod_11 = False
                     
                 if state_ogorod_12:
                     ogorod_12.planted = True
                     state_plant_12 = 1
                     plants.add(tomato_12)
-                
+                    state_ogorod_12 = False
+                    
                 plant_menu_state = False
                 tomato_seed -= 1
                 
             else:
                 draw_text("У вас закінчилося насіння купіть у магазині", text5, (200,0,0), 50, 200)
+        
+        
+        
+        
                 
         if plant_carrot.draw(mw):
             if carrot_seed >= 1:
 
                 if state_ogorod_1:
                     ogorod_1.planted = True
-                    state_plant_1 = 1
+                    state_plant_1 = 2
+                    plants.add(carrot_1)
+                    state_ogorod_1 = False
                     
                 if state_ogorod_2:
                     ogorod_2.planted = True
-                    state_plant_2 = 1
+                    state_plant_2 = 2
+                    plants.add(carrot_2)
+                    state_ogorod_2 = False
                     
                 if state_ogorod_3:
                     ogorod_3.planted = True
-                    state_plant_3 = 1
+                    state_plant_3 = 2
+                    plants.add(carrot_3)
+                state_ogorod_3 = False
                     
                 if state_ogorod_4:
                     ogorod_4.planted = True
-                    state_plant_4 = 1
+                    state_plant_4 = 2
+                    plants.add(carrot_4)
+                    state_ogorod_4 = False
                     
                 if state_ogorod_5:
                     ogorod_5.planted = True
-                    state_plant_5 = 1
+                    state_plant_5 = 2
+                    plants.add(carrot_5)
+                    state_ogorod_5 = False
                     
                 if state_ogorod_6:
                     ogorod_6.planted = True
-                    state_plant_6 = 1
+                    state_plant_6 = 2
+                    plants.add(carrot_6)
+                    state_ogorod_6 = False
                     
                 if state_ogorod_7:
                     ogorod_7.planted = True
-                    state_plant_7 = 1
+                    state_plant_7 = 2
+                    plants.add(carrot_7)
+                    state_ogorod_7 = False
                     
                 if state_ogorod_8:
                     ogorod_8.planted = True
-                    state_plant_8 = 1
+                    state_plant_8 = 2
+                    plants.add(carrot_8)
+                    state_ogorod_8 = False
                     
                 if state_ogorod_9:
                     ogorod_9.planted = True
-                    state_plant_9 = 1
+                    state_plant_9 = 2
+                    plants.add(carrot_9)
+                    state_ogorod_9 = False
                     
                 if state_ogorod_10:
                     ogorod_10.planted = True
-                    state_plant_10 = 1
+                    state_plant_10 = 2
+                    plants.add(carrot_10)
+                    state_ogorod_10 = False
                     
                 if state_ogorod_11:
                     ogorod_11.planted = True
-                    state_plant_11 = 1
+                    state_plant_11 = 2
+                    plants.add(carrot_11)
+                    state_ogorod_11 = False
                     
                 if state_ogorod_12:
                     ogorod_12.planted = True
-                    state_plant_12 = 1
-                
-                plants.add(carrot_1)
+                    state_plant_12 = 2
+                    plants.add(carrot_12)
+                    state_ogorod_12 = False
+                    
                 plant_menu_state = False
                 carrot_seed -= 1
             else:
@@ -681,64 +740,76 @@ def plant_menu():
 
                 if state_ogorod_1:
                     ogorod_1.planted = True
-                    state_plant_1 = 1
+                    state_plant_1 = 3
                     plants.add(potato_1)                 
+                    state_ogorod_1 = False
                     
                 if state_ogorod_2:
                     ogorod_2.planted = True
-                    state_plant_2 = 1
+                    state_plant_2 = 3
                     plants.add(potato_2)                 
+                    state_ogorod_2 = False
                     
                 if state_ogorod_3:
                     ogorod_3.planted = True
-                    state_plant_3 = 1
+                    state_plant_3 = 3
                     plants.add(potato_3)                 
+                    state_ogorod_3 = False
                     
                 if state_ogorod_4:
                     ogorod_4.planted = True
-                    state_plant_4 = 1
+                    state_plant_4 = 3
                     plants.add(potato_4)                 
+                    state_ogorod_4 = False
                     
                 if state_ogorod_5:
                     ogorod_5.planted = True
-                    state_plant_5 = 1
+                    state_plant_5 = 3
                     plants.add(potato_5)                 
+                    state_ogorod_5 = False
                     
                 if state_ogorod_6:
                     ogorod_6.planted = True
-                    state_plant_6 = 1
+                    state_plant_6 = 3
                     plants.add(potato_6)                 
+                    state_ogorod_6 = False
                     
                 if state_ogorod_7:
                     ogorod_7.planted = True
-                    state_plant_7 = 1
+                    state_plant_7 = 3
                     plants.add(potato_7)                 
+                    state_ogorod_7 = False
                     
                 if state_ogorod_8:
                     ogorod_8.planted = True
-                    state_plant_8 = 1
+                    state_plant_8 = 3
                     plants.add(potato_8)                 
+                    state_ogorod_8 = False
                     
                 if state_ogorod_9:
                     ogorod_9.planted = True
-                    state_plant_9 = 1
+                    state_plant_9 = 3
                     plants.add(potato_9)                 
+                    state_ogorod_9 = False
                     
                 if state_ogorod_10:
                     ogorod_10.planted = True
-                    state_plant_10 = 1
+                    state_plant_10 = 3
                     plants.add(potato_10)                 
-
+                    state_ogorod_10 = False
+                    
                 if state_ogorod_11:
-                    ogorod_11.planted = True
-                    state_plant_11 = 1
+                    ogorod_11.planted = True 
+                    state_plant_11 = 3
                     plants.add(potato_11)                 
-                
+                    state_ogorod_11 = False
+                    
                 if state_ogorod_12:
                     ogorod_12.planted = True
-                    state_plant_12 = 1
+                    state_plant_12 = 3
                     plants.add(potato_12)                 
-                
+                    state_ogorod_12 = False
+                    
                 plant_menu_state = False   
                 potato_seed -= 1
                 
@@ -760,7 +831,7 @@ def menu():
             if menu_state == "main":
             
                 draw_text("TRY YOURSELF AS FARMER!",text2,text_col,50,152)
-                draw_text("TRY YOURSELF AS FARMER!",text2,(200, 0, 0),52,150)
+                draw_text("TRY YOURSELF AS FARMER!",text2,(200, 1, 1),52,150)
                 if play_button.draw(mw):
                     game = True
                     start_the_game()
@@ -863,7 +934,7 @@ def start_the_game():
             draw_text(str(carrot_seed),text4,(39, 15, 144), 274, 112)
             draw_text(str(money),text4,(30, 235, 0), 436, 36)
             
-            if sprite.collide_rect(ogorod_1,player):
+            if sprite.collide_rect(ogorod_1,player) and list_ogorod[0]:
                 plant_button = Button(player.rect.x + 100,player.rect.y - 100,plant_1_img,1)
                 pick_button = Button(player.rect.x - 100,player.rect.y + 100,pick_img,1)
                 if plant_button.draw(mw):
@@ -872,7 +943,7 @@ def start_the_game():
                         plant_menu_state = True    
                         plant_menu()
                 
-            if sprite.collide_rect(ogorod_3,player):
+            if sprite.collide_rect(ogorod_2,player) and list_ogorod[1]:
                 plant_button = Button(player.rect.x - 100,player.rect.y - 100,plant_2_img,1)
                 pick_button = Button(player.rect.x - 100,player.rect.y + 100,pick_img,1)
                 if plant_button.draw(mw):
@@ -884,7 +955,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_3,player):
+            if sprite.collide_rect(ogorod_3,player) and list_ogorod[2]:
                 plant_button = Button(player.rect.x + 100,player.rect.y + 100,plant_3_img,1)
                 pick_button = Button(player.rect.x - 100,player.rect.y + 100,pick_img,1)
                 if plant_button.draw(mw):
@@ -896,7 +967,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_4,player):
+            if sprite.collide_rect(ogorod_4,player) and list_ogorod[3]:
                 plant_button = Button(player.rect.x - 100,player.rect.y + 100,plant_4_img,1)
                 pick_button = Button(player.rect.x - 100,player.rect.y + 100,pick_img,1)
                 if plant_button.draw(mw):
@@ -908,7 +979,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_5,player):
+            if sprite.collide_rect(ogorod_5,player) and list_ogorod[4]:
                 plant_button = Button(player.rect.x + 100,player.rect.y - 100,plant_5_img,1)
                 if plant_button.draw(mw):
                     if state_coin_5 == 0:
@@ -919,7 +990,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_6,player):
+            if sprite.collide_rect(ogorod_6,player) and list_ogorod[5]:
                 plant_button = Button(player.rect.x - 100,player.rect.y - 100,plant_6_img,1)
                 if plant_button.draw(mw):
                     if state_coin_6 == 0:
@@ -930,7 +1001,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(player,ogorod_7):
+            if sprite.collide_rect(player,ogorod_7) and list_ogorod[6]:
                 plant_button = Button(player.rect.x + 100,player.rect.y + 100,plant_7_img,1)
                 if plant_button.draw(mw):
                     if state_coin_7 == 0:
@@ -941,7 +1012,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_8,player):
+            if sprite.collide_rect(ogorod_8,player) and list_ogorod[7]:
                 plant_button = Button(player.rect.x - 100,player.rect.y + 100,plant_8_img,1)
                 if plant_button.draw(mw):
                     if state_coin_8 == 0:
@@ -952,7 +1023,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_9,player):
+            if sprite.collide_rect(ogorod_9,player) and list_ogorod[8]:
                 plant_button = Button(player.rect.x + 100,player.rect.y - 100,plant_9_img,1)
                 if plant_button.draw(mw):
                     if state_coin_9 == 0:
@@ -963,7 +1034,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_10,player):
+            if sprite.collide_rect(ogorod_10,player) and list_ogorod[9]:
                 plant_button = Button(player.rect.x - 100,player.rect.y - 100,plant_10_img,1)
                 if plant_button.draw(mw):
                     if state_coin_10 == 0:
@@ -974,7 +1045,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_11,player):
+            if sprite.collide_rect(ogorod_11,player) and list_ogorod[10]:
                 plant_button = Button(player.rect.x + 100,player.rect.y + 100,plant_11_img,1)              
                 if plant_button.draw(mw):
                     if state_coin_11 == 0:
@@ -985,7 +1056,7 @@ def start_the_game():
                     else:
                         draw_text("Вам треба зібрати монетку щоб посадити",text3,(200, 0, 0), 50, 340)
                 
-            if sprite.collide_rect(ogorod_12,player):
+            if sprite.collide_rect(ogorod_12,player) and list_ogorod[11]:
                 plant_button = Button(player.rect.x - 100,player.rect.y + 100,plant_12_img,1)             
                 if plant_button.draw(mw):
                     if state_coin_12 == 0:
@@ -1032,6 +1103,7 @@ def start_the_game():
                             potato_2 = GameSprite("plant_seed.png", ogorod_2.rect.x + 10 , ogorod_2.rect.y, 70, 100 , 0) 
                        
                         coin_2 = GameSprite('coin.png', randint(350,900), randint(150,600), 100, 100, 1)
+                        coins.add(coin_2)
                         state_coin_2 = 1
                         plant_seed_2 = False
 
@@ -1534,7 +1606,7 @@ def start_the_game():
                     if state_plant_2 == 3:
                         money += 11
                         
-                    coin.kill()
+                    coin_2.kill()
                     state_coin_2 = 0
                     state_plant_2 = 0
                     
@@ -1652,8 +1724,7 @@ def start_the_game():
                         money += 6
                     
                     if state_plant_10 == 3:
-                        money += 11
-                        
+                        money += 6
                     coin_10.kill()
                     state_coin_10 = 0
                     state_plant_10 = 0
